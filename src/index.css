@@ -3,6 +3,24 @@
 @tailwind utilities;
 
 
+/* Slider */
+/* .ant-layout-sider, .ant-layout-sider-dark{
+  flex: 0 0 300px;
+  min-width: 300px !important;
+  max-width: 300px !important;
+  width: 300px !important;
+} */
+
+/* Antd */
+
+button.css-dev-only-do-not-override-1e3x2xa.ant-btn-primary{
+  background-color: #0095ff;
+}
+
+span.ant-layout-sider-zero-width-trigger-left{
+  top: 25px !important;
+  opacity: .9;
+}
 
 /* TEACHERS TABLE */
 
