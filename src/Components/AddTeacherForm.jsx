@@ -72,7 +72,7 @@ const AddTeacherForm = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showDrawer} icon={<PlusOutlined className="relative bottom-1"/>}>
+      <Button type="primary" className="bg-sky-500" onClick={showDrawer} icon={<PlusOutlined className="relative bottom-1"/>}>
         Add Teacher
       </Button>
       <Drawer
@@ -183,7 +183,7 @@ const AddTeacherForm = () => {
                   getPopupContainer={(trigger) => trigger.parentElement}
                 />
               </Form.Item> */}
-          <Button type="primary" onClick={handleAddTeacher}>
+          <Button type="primary"  className="bg-sky-500" onClick={handleAddTeacher}>
             Submit
           </Button>
         </Form>
