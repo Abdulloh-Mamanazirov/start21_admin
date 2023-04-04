@@ -21,13 +21,15 @@ const options = [
   {value:"Intensive IELTS",label:"Intensive IELTS"},
   {value:"English in Russian",label:"English in Russian"},
   {value:"Kids English",label:"Kids English"},
-  {value:"Speaking",label:"Speaking"},
   {value:"Reading",label:"Reading"},
   {value:"Listening",label:"Listening"},
+  {value:"Speaking",label:"Speaking"},
+  {value:"Writing",label:"Writing"},
 ];
 
 const AddTeacherForm = () => {
   const [open, setOpen] = useState(false);
+  const [addTeacher, setAddTeacher] = useState(true);
   const nameInput = useRef()
   const ageInput = useRef()
   const phoneInput = useRef()
@@ -54,12 +56,16 @@ const AddTeacherForm = () => {
   }
   async function handleAddTeacher() {
     
-      data.name = nameInput.current.input.value,
-      data.age = ageInput.current.input.value,
-      data.phone = phoneInput.current.input.value,
-      data.levels = levelInput.current.input.value,
+    data.name = nameInput.current.input.value,
+    data.age = ageInput.current.input.value,
+    data.phone = phoneInput.current.input.value,
+    data.levels = levelInput.current.input.value.split(",");
+
+    if(!data.name) return toast("Please, Enter a name", {type:"error"});
+    if(!data.phone) return toast("Please, Enter a phone number", {type:"error"});
+    if (data.course.length === 0) return toast("Please, Select course(s)", { type: "error" });
     
-    console.log(data);
+    console.log(data.course.length);
 
     try {
       let {data:msg} = await axios.post("https://start21-backend.onrender.com/api/addTeacher", data);
@@ -96,7 +102,6 @@ const AddTeacherForm = () => {
             rules={[
               {
                 required: true,
-                message: "Please enter name",
               },
             ]}
           >
@@ -105,11 +110,6 @@ const AddTeacherForm = () => {
           <Form.Item
             name="age"
             label="Age"
-            rules={[
-              {
-                required: false,
-              },
-            ]}
           >
             <Input ref={ageInput} type="number" placeholder="Please enter age" />
           </Form.Item>
@@ -119,7 +119,6 @@ const AddTeacherForm = () => {
             rules={[
               {
                 required: true,
-                message: "Please enter phone number",
               },
             ]}
           >
@@ -136,7 +135,6 @@ const AddTeacherForm = () => {
             rules={[
               {
                 required: true,
-                message: "Please select courses",
               },
             ]}
           >
@@ -153,12 +151,6 @@ const AddTeacherForm = () => {
           <Form.Item
             name="levels"
             label="Levels (seperate with ',')"
-            rules={[
-              {
-                required: true,
-                message: "Please enter levels",
-              },
-            ]}
           >
             <Input
               ref={levelInput}

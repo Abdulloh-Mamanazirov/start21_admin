@@ -154,9 +154,7 @@ const Teachers = () => {
         let recorded = record?.map((course) => {
           return <p>{course}</p>;
         });
-        return (
-          <p className="font-bolder">{recorded}</p>
-        );
+        return <p className="font-bolder">{recorded}</p>;
       },
       // ...getColumnSearchProps("course"),
       filters: [
@@ -184,6 +182,12 @@ const Teachers = () => {
       onFilter: (value, record) => record.course.includes(value),
     },
     {
+      title: "Levels",
+      dataIndex: "levels",
+      key: "levels",
+      render:(index,record)=>{return Array.isArray(record?.levels) && record?.levels[0] ? record?.levels?.map?.(l=><p className="bg-sky-300 mr-1 p-1 px-2 rounded-md inline-block">{l}</p>) : <p>No Information</p>}
+    },
+    {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
@@ -193,7 +197,6 @@ const Teachers = () => {
       title: "Age",
       dataIndex: "age",
       key: "age",
-      defaultSortOrder: "descend",
       sorter: (a, b) => a.age * 1 - b.age * 1,
     },
     // {
@@ -229,6 +232,7 @@ const Teachers = () => {
     // },
     {
       title: "Action",
+      width:220,
       key: "action",
       render: (_, record) => (
         <>
@@ -251,6 +255,7 @@ const Teachers = () => {
               Remove
             </Button>
           </Popover>
+          <Button onClick={()=>handleEditTeacher(record?.id)} className="ml-2 border-2 border-slate-500">Edit <i className="fa fa-pen pl-1"></i></Button>
         </>
       ),
     },
@@ -273,6 +278,13 @@ const Teachers = () => {
     setOpen(newOpen);
   };
 
+  // Update Teacher
+  function handleEditTeacher(id){
+    alert(id)
+
+    
+  }
+  
   return (
     <>
       <div className="pt-5 flex items-center gap-10">
@@ -280,6 +292,14 @@ const Teachers = () => {
         <AddTeacherForm />
       </div>
       <div className="min-h-full pt-5">
+        {/* <div className="z-40 absolute grid place-items-center inset-0 bg-black bg-opacity-40"><div className="z-50 bg-white p-2 rounded-lg">
+          <form>
+            <Input type="text" />
+            Update teacher 
+********************************************************************
+            <Input type="text" />
+          </form>
+          </div></div> */}
         <Table columns={columns} dataSource={teachers} />
       </div>
     </>
